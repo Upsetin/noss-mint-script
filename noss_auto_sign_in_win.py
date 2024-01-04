@@ -6,6 +6,7 @@ import threading
 import time
 
 import bech32
+import ecdsa
 import requests
 import websocket
 from loguru import logger
@@ -98,8 +99,16 @@ def decode_bech32(encoded_key):
     return bytes(bech32.convertbits(data, 5, 8, False))
 
 
-def sign_event(event_id):
-    signature = identity_pk.sign(bytes.fromhex(event_id))
+def sign_msg(message, private_key):
+    decoded_private_key = decode_bech32(private_key)
+
+    private_key = ecdsa.SigningKey.from_string(decoded_private_key, curve=ecdsa.SECP256k1)
+
+    message_str = message["id"]
+
+    signature = private_key.sign(message_str.encode('utf-8'), hashfunc=hashlib.sha256)
+
+    # print("Signature:", signature.hex())
     return signature.hex()
 
 
@@ -222,7 +231,7 @@ def main(pubkey, private_key):
         "pubkey": pubkey
     }
 
-    sig = sign_event(message["id"])
+    sig = sign_msg(message, private_key)
 
     #  post event
     pay_load = {
@@ -266,11 +275,8 @@ def main(pubkey, private_key):
 
     logger.success(
         f"successful! cost: {round(time.time() - start_time, 2)}s, nonce: {nonce}, id: {_id}, sig: {sig}, event: {cache_event_id}")
-    try:
-        post_event(pay_load)
-        logger.success(f" post id event successful : {_id}")
-    except Exception as e:
-        logger.error(f" post id event error : {e}")
+    post_event(pay_load)
+    logger.success(f" post id event successfuf : {_id}")
     print(_id)
 
 
@@ -282,7 +288,7 @@ def rush(pubkey, private_key):
 if __name__ == '__main__':
 
     # type_your_private_key_here
-    private_key = "type_your_private_key_here"
+    private_key = "xxxxxxxxx"
 
     identity_pk = PrivateKey.from_nsec(private_key)
 
