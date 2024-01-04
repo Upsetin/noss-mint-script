@@ -184,7 +184,7 @@ def main(pubkey, private_key):
 
         _id = get_id(data)
         # print("nonce: ", nonce, "id: ", _id)
-        if _id.startswith("000000"):
+        if _id.startswith("00000"):
             break
     message = {
         "id": _id,
