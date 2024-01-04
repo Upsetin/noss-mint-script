@@ -1,0 +1,8 @@
+requests
+bech32
+ecdsa
+websocket-client
+loguru
+nostr
+nostr-sdk
+web3
