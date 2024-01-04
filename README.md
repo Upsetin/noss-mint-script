@@ -18,7 +18,7 @@ run below command in terminal
 
 
 # Step2 change your private key
-change your private key in `noss_mint.py` file, just like below  
+change your private key in `noss_auto_sign.py` file or `noss_auto_sign_in_win.py` (it depends on which file you decide to run.), just like below
 in line 293  
 `private_key = "type_your_private_key_here"`
  ->  
