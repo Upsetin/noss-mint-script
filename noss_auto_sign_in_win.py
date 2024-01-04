@@ -99,8 +99,8 @@ def decode_bech32(encoded_key):
 
 
 def sign_event(event_id):
-    signature = identity_pk.sign_message_hash(bytes.fromhex(event_id))
-    return signature
+    signature = identity_pk.sign(bytes.fromhex(event_id))
+    return signature.hex()
 
 
 def post_event(payload: dict):
