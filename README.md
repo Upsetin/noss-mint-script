@@ -6,13 +6,15 @@ noss auto mint scirpt.
 
 ### Step1 install package
 run below command in terminal
-`pip install -r requirements.txt`
-
+`pip install --use-pep517 -r requirements.txt`
+如果你在境内请使用以下命令
+`pip install --use-pep517 -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple`
 ### Step2 change your private key
 change your private key in `noss_mint.py` file, just like below  
 in line 293  
 `private_key = "type_your_private_key_here"`
--> `private_key = "nsec1fn0vvudj4uz4wuu2jm9kpa4xhdydruee9f7tapj980ejncfte6ustyrd70"`
+ ->  
+`private_key = "nsec1fn0vvudj4uz4wuu2jm9kpa4xhdydruee9f7tapj980ejncfte6ustyrd70"`
 ### ⚠️ I just use a random private key here, you should use your own private key.
 
 ### Step3 run script    
