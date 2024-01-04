@@ -1,0 +1,6 @@
+requests
+websocket-client
+loguru
+pynostr
+nostr-sdk
+web3
