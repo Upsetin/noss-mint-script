@@ -28,7 +28,7 @@ in line 293
 ## Step3 run script    
 run below command in terminal  
 `python3 noss_auto_sign.py`
-### if you use windows, you can run below command
+### ‼️ if you use windows, you can run below command
 `python noss_auto_sign_in_win.py`
 
 ### Options u guys also can change the theread number
