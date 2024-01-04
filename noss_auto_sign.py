@@ -51,9 +51,7 @@ def get_last_event_id_forever():
     # websocket.enableTrace(True)
     # ws = websocket.WebSocketApp(websocket_url, header={'Sec-WebSocket-Extensions': ''})
 
-    ws.run_forever(http_proxy_host="dc.smartproxy.com", proxy_type="http",
-                   http_proxy_auth=("hjhjhj", "aaLmCFuz643jX4ehez"),
-                   http_proxy_port=10000, reconnect=True)
+    ws.run_forever(reconnect=True)
 
 
 def get_latest_arb_block():
@@ -297,11 +295,13 @@ if __name__ == '__main__':
     pubkey = identity_pk.public_key.hex()
 
     thread_num = 10
+
     # update last_event_id forever in background
     for i in range(1):
         i = threading.Thread(target=get_last_event_id_forever, args=())
         i.start()
 
+    time.sleep(3)
     # thread num -> 10
     for i in range(thread_num):
         i = threading.Thread(target=rush, args=(pubkey, private_key))
