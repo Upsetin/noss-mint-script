@@ -275,8 +275,11 @@ def main(pubkey, private_key):
 
     logger.success(
         f"successful! cost: {round(time.time() - start_time, 2)}s, nonce: {nonce}, id: {_id}, sig: {sig}, event: {cache_event_id}")
-    post_event(pay_load)
-    logger.success(f" post id event successfuf : {_id}")
+    try:
+        post_event(pay_load)
+        logger.success(f" post id event successful : {_id}")
+    except Exception as e:
+        logger.error(f" post id event error : {e}")
     print(_id)
 
 
