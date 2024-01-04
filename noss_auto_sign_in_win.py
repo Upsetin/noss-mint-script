@@ -6,7 +6,6 @@ import threading
 import time
 
 import bech32
-import ecdsa
 import requests
 import websocket
 from loguru import logger
@@ -99,17 +98,9 @@ def decode_bech32(encoded_key):
     return bytes(bech32.convertbits(data, 5, 8, False))
 
 
-def sign_msg(message, private_key):
-    decoded_private_key = decode_bech32(private_key)
-
-    private_key = ecdsa.SigningKey.from_string(decoded_private_key, curve=ecdsa.SECP256k1)
-
-    message_str = message["id"]
-
-    signature = private_key.sign(message_str.encode('utf-8'), hashfunc=hashlib.sha256)
-
-    # print("Signature:", signature.hex())
-    return signature.hex()
+def sign_event(event_id):
+    signature = identity_pk.sign_message_hash(bytes.fromhex(event_id))
+    return signature
 
 
 def post_event(payload: dict):
@@ -193,7 +184,7 @@ def main(pubkey, private_key):
 
         _id = get_id(data)
         # print("nonce: ", nonce, "id: ", _id)
-        if _id.startswith("00000"):
+        if _id.startswith("000000"):
             break
     message = {
         "id": _id,
@@ -231,7 +222,7 @@ def main(pubkey, private_key):
         "pubkey": pubkey
     }
 
-    sig = sign_msg(message, private_key)
+    sig = sign_event(message["id"])
 
     #  post event
     pay_load = {
