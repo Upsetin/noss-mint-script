@@ -4,3 +4,5 @@ loguru
 pynostr
 nostr-sdk
 web3
+ecdsa
+bech32
