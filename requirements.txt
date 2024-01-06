@@ -1,4 +1,4 @@
-requests
+curl_cffi
 bech32
 ecdsa
 websocket-client

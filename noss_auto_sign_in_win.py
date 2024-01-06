@@ -7,7 +7,7 @@ import time
 
 import bech32
 import ecdsa
-import requests
+from curl_cffi import requests
 import websocket
 from loguru import logger
 from pynostr.key import PrivateKey
@@ -132,7 +132,7 @@ def post_event(payload: dict):
     url = "https://api-worker.noscription.org/inscribe/postEvent"
     data = json.dumps(payload, separators=(',', ':'))
     # print(data)
-    response = requests.post(url, headers=headers, data=data)
+    response = requests.post(url, headers=headers, data=data, impersonate="chrome110",)
 
     logger.info(f"post event response: {response.text}")
 
@@ -288,7 +288,7 @@ def rush(pubkey, private_key):
 if __name__ == '__main__':
 
     # type_your_private_key_here
-    private_key = "xxxxxxxxx"
+    private_key = "type_your_private_key_here"
 
     identity_pk = PrivateKey.from_nsec(private_key)
 
